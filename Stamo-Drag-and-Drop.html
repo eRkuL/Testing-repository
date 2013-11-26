@@ -38,9 +38,10 @@
 	
 	<script>
 		var DRAG_ELEMENT_CLASS = ".dragElement";
+		var draggedElement = null;
 		
 		$(document).ready(function () {
-			attacDragAndDropHandlers(); 
+			attacDragAndDropHandlers();  
 		});
 		
 		function attacDragAndDropHandlers() {
@@ -61,8 +62,9 @@
 		}
 		
 		function dragStartHandler(e) {
+			draggedElement = e.target;
 			console.log("start");
-			e.target.style.opacity = 0.5;
+			//e.target.style.opacity = 0.5;
 		}
 		
 		function dragEndHandler(e) {
@@ -71,21 +73,39 @@
 		}
 			
 		function dragOverHandler(e) {
+			console.log("over");
 			e.preventDefault();
 		}
 		
 		function dragEnterHandler(e) {
+			console.log("enter");
 			e.target.style.background = "#ff0000";
 		}
 		
 		function dragLeaveHandler(e) {
+			console.log("leave");
 			e.target.style.background = "";
 		}
 		
 		function dropHandler(e) {
+			
 			console.log("drop");
+			
 			e.target.style.opacity = 1.0;
 			e.target.style.background = "";
+			
+			switchDomElements(draggedElement, e.target);
+			draggedElement = null;
+		}
+		
+		function switchDomElements(element1, element2) {
+			var parent1 = element1.parentNode,
+				parent2 = element2.parentNode,
+				next1 = element1.nextSibling,
+				next2 = element2.nextSibling;
+				
+			parent1.insertBefore(element2, next1);
+			parent2.insertBefore(element1, next2);
 		}
 		
 		
