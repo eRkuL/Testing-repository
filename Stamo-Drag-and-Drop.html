@@ -20,6 +20,8 @@
                 margin-bottom: 10px;
                 border: 1px solid red;
                 border-radius: 14px;
+				text-align: center;
+				color:red;
             }
             
             .dragElement:hover {
@@ -30,9 +32,9 @@
 	
     <body>
         <div id="container">
-            <div class="dragElement" draggable="true">A</div>
-            <div class="dragElement" draggable="true">B</div>
-            <div class="dragElement" draggable="true">C</div>
+            <div class="dragElement" draggable="true" id="A">A</div>
+            <div class="dragElement" draggable="true" id="B">B</div>
+            <div class="dragElement" draggable="true" id="C">C</div>
         </div>
     </body>
 	
@@ -49,7 +51,7 @@
 				count = dragElements.length;
 			for (i = 0; i < count; i++) {
 				attachEventHandler(dragElements[i], "dragstart", dragStartHandler);
-				attachEventHandler(dragElements[i], "dragend", dragStartHandler);
+				attachEventHandler(dragElements[i], "dragend", dragEndHandler);
 				attachEventHandler(dragElements[i], "dragenter", dragEnterHandler);
 				attachEventHandler(dragElements[i], "dragover", dragOverHandler);
 				attachEventHandler(dragElements[i], "dragleave", dragLeaveHandler);  
@@ -62,8 +64,9 @@
 		}
 		
 		function dragStartHandler(e) {
-			draggedElement = e.target;
 			console.log("start");
+			e.originalEvent.dataTransfer.setData("text/html", "");
+			draggedElement = e.target;
 			//e.target.style.opacity = 0.5;
 		}
 		
@@ -88,7 +91,6 @@
 		}
 		
 		function dropHandler(e) {
-			
 			console.log("drop");
 			
 			e.target.style.opacity = 1.0;
@@ -107,28 +109,9 @@
 			parent1.insertBefore(element2, next1);
 			parent2.insertBefore(element1, next2);
 		}
-		
-		
 	</script>
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
 	
     
     
