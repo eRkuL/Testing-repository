@@ -1,0 +1,45 @@
+<!doctype html>
+
+<html>
+	<head>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	</head>
+	
+    <body>
+        <script>
+			$(document).ready(function() {
+				var $container = $("#container"),
+					DELTA_OPACITY = 0.1,
+					NUMBER_OF_OPACITY_CHANGES = 2;
+					
+				setInterval(function() {
+					updateOpacity($container, NUMBER_OF_OPACITY_CHANGES, (-1)*DELTA_OPACITY);
+				}, 220);
+	
+			});
+			
+			function updateOpacity($container, count, delta) {
+				var i;
+				for (i = 0; i < count; i++) {
+					changeOpacity($container, delta);
+				}
+			}
+			
+			function changeOpacity($container, delta) {
+				var currentOpacity = $container.css("opacity");
+				//console.log(currentOpacity);
+				currentOpacity = +currentOpacity;
+				//console.log(currentOpacity);
+				currentOpacity += delta;
+				if (currentOpacity < 0) {
+					currentOpacity = 1;
+				}
+				//console.log(currentOpacity);
+				$container.css({opacity: currentOpacity});
+			}
+        </script>
+		
+		<div id="container">Stamo Gochev 2014</div>
+    </body>
+</html>
+	
